@@ -1,0 +1,159 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Editar Perfil Hanging Out</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/149ac85315.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <section id="admin-back">
+        <header class="admin-header">
+            <div class="d-flex">
+                <img src="../imgs/Logo.png" class="logo">
+                <h1>Editar Perfil</h1>
+                <i class="fa-solid fa-gear fa-6x"></i>
+            </div>
+        </header>
+        <form class="editarPerfil">
+            <div>
+                <h1>Nombre*</h1>
+                <label for="nombre"></label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div>
+                <h1>Apellidos*</h1>
+                <label for="apellidos"></label>
+                <input type="text" id="apellidos" name="apellidos" required>
+            </div>
+            <div>
+                <h1>Email*</h1>
+                <label for="email"></label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-section2">
+                <h1>Fecha de Nacimiento*</h1>
+                <label for="fechaNacimiento"></label>
+                <i class="fa-solid fa-calendar-days fa-3x calendario"></i>
+                <input type="date" id="fechaNacimiento" name="fechaNacimiento" placeholder="" required>
+            </div>
+            <div>
+                <h1>Población*</h1>
+                <label for="poblacion"></label>
+                <input type="text" id="poblacion" name="poblacion" required>
+            </div>
+            <div class="input-section2">
+                <h1>Provincia*</h1>
+                <label for="provincia"></label>
+                <!-- <select class="" id="provincia" name="provincia">
+                        <option value="idProvincia">Alicante</option>
+                        <option value="idProvincia" selected>Albacete</option>
+                        <option value="idProvincia">Murcia</option>
+                </select> -->
+                <datalist class="listaProvincias" id="provincia">
+                    <option>Alicante</option>            
+                    <option>Albacete!</option>            
+                    <option>Murcia</option>            
+                    <option>Ciudad Real</option>            
+                </datalist>
+                <input type="text" list="provincia">
+
+            </div>
+            <div>
+                <h1>País*</h1>
+                <select class="prov" name="pais">
+                    <option value="idProvincia" selected>ESPAÑA</option>
+                </select>
+            </div>
+            <div>
+                <h1>Descripción*</h1>
+                <label for="descripcion"></label>
+                <textarea id="descripcion" name="descripcion" required></textarea>
+            </div>
+            <div class="fotoPerfil2">
+                <div class="marcoFotoPerfil">
+                    <img src="../imgs/paintball.jpg">
+                </div>
+                <!-- <h3 class="cambiarFoto">Cambiar foto</h3> -->
+                <div class="input-section-img my-5">
+                    <input type="file" name="file-2" id="file-2" class="inputfile inputfile-3" />
+                    <label class="cambiarFoto" for="file-2">                    
+                        <span class="iborrainputfile">Cambiar foto</span>
+                     </label>
+                </div>
+            </div>
+            <div>
+                <h1>Intereses*</h1>
+                <div class="d-flex flex-row flex-wrap intereses">
+                    <div class="containerCategoria">
+                        <button>Cultura y Arte</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="containerCategoria">
+                        <button>Viajes</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="containerCategoria">
+                        <button>Música y Baile</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="containerCategoria">
+                        <button>Idiomas</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="containerCategoria">
+                        <button>Animales</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="containerCategoria">
+                        <button>Educación</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="containerCategoria">
+                        <button>Deportes</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="containerCategoria">
+                        <button>Medioambiente</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="containerCategoria">
+                        <button>Multiaventura</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="containerCategoria">
+                        <button>Religión</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="containerCategoria">
+                        <button>Ciencia y Tecnología</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="containerCategoria">
+                        <button>Juegos</button>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <a href="#" class="cambiarPass">Cambiar Contraseña</a>
+            </div>
+            <button class="form-button" type="submit">Guardar Cambios</button>
+        </form>
+    </section>
+</body>
+<!-- Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</html>

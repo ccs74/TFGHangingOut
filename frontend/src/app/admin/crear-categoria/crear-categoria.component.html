@@ -1,0 +1,56 @@
+<section id="admin-back">
+    <!-- Común en la parte de admin -->
+    <header class="admin-header">
+        <div class="d-flex">
+            <img src="../../../assets/imgs/Logo.png" class="logo">
+            <h1 class="mt-5">Panel de Control</h1>
+        </div>
+
+    </header>
+    <!-- Común en la parte de admin -->
+    <nav class="admin-nav">
+        <div class="float-left mr-1">
+            <div class="dropdown">
+                <button class="menuBoton" type="button" data-toggle="dropdown">
+            <i class="fa-solid fa-bars fa-2x p-1"></i>
+          </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/usuarios">Usuarios</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/actividades">Actividades</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/categorias">Categorías</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/incidencias">Incidencias</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button class="logOutAdmin" (click)="logout()">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex admin-nav-title ">
+            <div class="ml-2 my-auto">
+                <h4 class="title2 mt-2">{{titulo}}</h4>
+            </div>
+            <div class="d-flex my-auto">
+                <i class="fa-solid fa-arrow-rotate-left fa-2x mx-3" routerLink="/admin/categorias"></i>
+            </div>
+        </div>
+    </nav>
+    <div class="resultados">
+        <form [formGroup]="registerForm" (ngSubmit)="crearCategoria()">
+            <div>
+                <label class="tituloForm mt-3" for="nombre">Nombre*</label><br>
+                <input class="inputForm" type="text" formControlName="nombre" required>
+            </div>
+            <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('nombre')">* Debe introducir un nombre</p>
+            <button *ngIf="nuevo" class="big-button abajo2" type="submit"><i class="fa fa-spinner fa-spin mr-2"*ngIf="waiting"></i>Crear Categoría</button>
+            <button *ngIf="!nuevo" class="big-button abajo2" type="submit"><i class="fa fa-spinner fa-spin mr-2"*ngIf="waiting"></i>Editar Categoría</button>
+        </form>
+    </div>
+</section>

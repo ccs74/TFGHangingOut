@@ -1,0 +1,74 @@
+<section id="admin-back">
+    <header class="admin-header">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img src="../../../assets/imgs/Logo.png" class="logo">
+                <h1>Denunciar</h1>
+            </div>
+            <i class="fa-solid fa-user fa-3x" routerLink="/editar-perfil"></i>
+        </div>
+    </header>
+    <div class="separacion"></div>
+    <div class="text-right mr-2 mt-2">
+        <i style="color: #999999" class="fa-solid fa-arrow-rotate-left fa-2x" [routerLink]="['/usuarios/ver-usuario/', idUsuarioLog]"></i>
+    </div>
+    <div class="denunciar">
+        <h1>¿Por qué quieres denunciar a {{usuario.nombre}} {{usuario.apellidos}}?</h1>
+        <h5 class="mt-2" style="color: #999999">Elige un motivo</h5>
+        <form>
+            <div class="checkDenuncia mt-3">
+                <label for="denuncia1">
+                  <span >Me ha estafado</span>
+                  <input *ngIf="motivos[0].marcado" type="checkbox" id="1" [checked]="true" name="estafa" (click)="seleccionar(motivos[0].id)">
+                  <input *ngIf="!motivos[0].marcado" type="checkbox" id="1" [checked]="false" name="estafa" (click)="seleccionar(motivos[0].id)">
+              </label>
+                <ul>
+                    <li style="color: #999999">No se ha hecho la actividad</li>
+                    <li style="color: #999999">La descripción de sus actividades es falsa</li>
+                </ul>
+            </div>
+            <div class="checkDenuncia">
+                <label for="denuncia2">
+                  <span>Acoso / Mensaje insultante</span>
+                  <input *ngIf="motivos[1].marcado" type="checkbox" id="2" [checked]="true" name="acoso" (click)="seleccionar(motivos[1].id)">
+                  <input *ngIf="!motivos[1].marcado" type="checkbox" id="2" [checked]="false" name="acoso" (click)="seleccionar(motivos[1].id)">
+              </label>
+            </div>
+            <div class="checkDenuncia">
+                <label for="denuncia3">
+                  <span>Foto de perfil inadecuada</span>
+                  <input *ngIf="motivos[2].marcado" type="checkbox" id="3" [checked]="true" name="imgInadecuada" (click)="seleccionar(motivos[2].id)">
+                  <input *ngIf="!motivos[2].marcado" type="checkbox" id="3" [checked]="false" name="imgInadecuada" (click)="seleccionar(motivos[2].id)">
+              </label>
+            </div>
+            <div class="checkDenuncia">
+                <label for="denuncia4">
+                  <span>Contenido inapropiado</span>
+                  <input *ngIf="motivos[3].marcado" type="checkbox" id="4" [checked]="true" name="inapropiado" (click)="seleccionar(motivos[3].id)">
+                  <input *ngIf="!motivos[3].marcado" type="checkbox" id="4" [checked]="false" name="inapropiado" (click)="seleccionar(motivos[3].id)">
+              </label>
+                <ul>
+                    <li style="color: #999999">Organiza actividades sospechosas</li>
+                </ul>
+            </div>
+        </form>
+
+    </div>
+    <p *ngIf="alerta" class="alertaDenuncia">Debes seleccionar un motivo para poder denunciar</p>
+    <button (click)="denunciar()" class="botonBloquear denunciarB" type="submit"><i class="fa fa-spinner fa-spin mr-2"*ngIf="waiting"></i>Denunciar</button>
+
+    <div class="navBarCliente d-flex">
+        <div class="clicked">
+            <button><i class="fa-solid fa-user-group fa-3x" routerLink="/usuarios"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-rectangle-list fa-3x" routerLink="/actividades/organizadas"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-magnifying-glass fa-3x" routerLink="/resultados-actividades"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-comments fa-3x" routerLink="/chats"></i></button>
+        </div>
+    </div>
+</section>

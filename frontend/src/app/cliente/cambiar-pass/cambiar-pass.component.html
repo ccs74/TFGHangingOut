@@ -1,0 +1,51 @@
+<section id="admin-back">
+    <header class="admin-header">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img src="../../../assets/imgs/Logo.png" class="logo">
+                <h1>Contraseña</h1>
+            </div>
+            <i class="fa-solid fa-user fa-3x" routerLink="/editar-perfil"></i>
+        </div>
+    </header>
+    <div class="d-flex navSup" routerLink="/editar-perfil">
+        <i class="fa-solid fa-arrow-rotate-left fa-2x"></i>
+    </div>
+    <form class="changePass" [formGroup]="recoveryPassForm" (ngSubmit)="restablecerPass()">
+        <h2 class="resetPass">Restablecer Contraseña</h2>
+        <div class="mb-3">
+            <h5>Contraseña Actual*</h5>
+            <label for="passActual"></label>
+            <input type="password" [ngClass]="{'campo-incorrecto': !campoValido('password')}" formControlName="password" required>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('password')">* Debe introducir su contraseña actual</p>
+        <div class="mb-3">
+            <h5>Contraseña Nueva*</h5>
+            <label for="newPass"></label>
+            <input type="password" [ngClass]="{'campo-incorrecto': !campoValido('newPassword')}" formControlName="newPassword" required>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('newPassword')">* Introduzca la nueva contraseña</p>
+        <div class="mb-3">
+            <h5>Repetir Contraseña*</h5>
+            <label for="newPass2"></label>
+            <input type="password" [ngClass]="{'campo-incorrecto': !campoValido('newPassword2')}" formControlName="newPassword2" required>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('newPassword2')">* Por favor, introduzca la nueva contraseña otra vez</p>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!checarSiSonIguales()">* Las contraseñas no coinciden</p>
+        <button class="form-button" type="submit"><i class="fa fa-spinner fa-spin mr-2"*ngIf="waiting"></i>Cambiar Contraseña</button>
+    </form>
+    <div class="navBarCliente d-flex">
+        <div>
+            <button><i class="fa-solid fa-user-group fa-3x" routerLink="/usuarios"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-rectangle-list fa-3x" routerLink="/actividades/organizadas"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-magnifying-glass fa-3x" routerLink="/resultados-actividades"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-comments fa-3x" routerLink="/chats"></i></button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,56 @@
+<section id="admin-back" *ngIf="recuperar == false">
+    <header class="admin-header">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img src="../../../assets/imgs/Logo.png" class="logo" routerLink="/login">
+                <h1>Contraseña</h1>
+            </div>
+        </div>
+    </header>
+    <div class="d-flex navSup mt-3" routerLink="/editar-perfil">
+        <h2 class="text-right align">Volver</h2>
+        <i class="fa-solid fa-arrow-rotate-left fa-2x"></i>
+    </div>
+    <form class="editarPerfil changePass" [formGroup]="recoveryPassForm" (ngSubmit)="restablecerPass()">
+        <h2 class="resetPass">Restablecer Contraseña</h2>
+        <div class="mb-5">
+            <h5>Contraseña Nueva*</h5>
+            <label for="newPass"></label>
+            <input type="password" [ngClass]="{'campo-incorrecto': !campoValido('newPassword', 'recover')}" formControlName="newPassword" required>
+        </div>
+        <p class="text-danger mt-3 font-italic small" *ngIf="!campoValido('newPassword', 'recover')">* La contraseña es obligatoria</p>
+        <div>
+            <h5>Repetir Contraseña*</h5>
+            <label for="newPass2"></label>
+            <input type="password" [ngClass]="{'campo-incorrecto': !campoValido('newPassword2', 'recover')}" formControlName="newPassword2" required>
+        </div>
+        <p class="text-danger font-italic mt-3 small" *ngIf="campoValido('newPassword', 'recover') && !campoValido('newPassword2', 'recover')">* Por favor, introduzca la contraseña de nuevo</p>
+        <p class="text-danger font-italic mt-3 small" *ngIf="!checarSiSonIguales()">* Las contraseñas no coinciden</p>
+        <button class="form-button" type="submit">Cambiar Contraseña</button>
+    </form>
+</section>
+
+<section id="admin-back" *ngIf="recuperar == true">
+    <header class="admin-header">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img src="../../../assets/imgs/Logo.png" class="logo">
+                <h1>Contraseña</h1>
+            </div>
+        </div>
+    </header>
+    <div class="d-flex backPass" routerLink="/login">
+        <i class="fa-solid fa-arrow-rotate-left fa-3x"></i>
+    </div>
+    <form class="editarPerfil mt-1" [formGroup]="emailForm" (ngSubmit)="enviarEmail()">
+        <h2 class="resetPass">Restablecer Contraseña</h2>
+        <p>Por favor, introduzca su email:</p>
+        <div class="mb-5">
+            <h5>Email*</h5>
+            <label for="email"></label>
+            <input type="email" [ngClass]="{'campo-incorrecto': !campoValido('email', 'email')}" formControlName="email" required>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('email', 'email')">* Por favor, introduzca su email</p>
+        <button class="form-button px-4" type="submit">Confirmar</button>
+    </form>
+</section>

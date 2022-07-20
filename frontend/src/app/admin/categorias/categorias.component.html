@@ -1,0 +1,63 @@
+<section id="mat-2 admin-back">
+    <header class="admin-header">
+        <div class="d-flex">
+            <img src="../../../assets/imgs/Logo.png" class="logo">
+            <h1>Panel de Control</h1>
+        </div>
+
+    </header>
+    <!-- Común en la parte de admin -->
+    <nav class="admin-nav">
+        <div class="float-left mr-1">
+            <div class="dropdown">
+                <button class="menuBoton" type="button" data-toggle="dropdown">
+                <i class="fa-solid fa-bars fa-2x p-1"></i>
+            </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/usuarios">Usuarios</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/actividades">Actividades</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/categorias">Categorías</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/incidencias">Incidencias</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button class="logOutAdmin" (click)="logout()">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex admin-nav-title ">
+            <div class="ml-2 my-auto">
+                <h4 class="title2 mt-2">Categorías</h4>
+            </div>
+            <div class="d-flex my-auto">
+                <!-- Iconos Buscar y añadir -->
+                <i class="fa-solid fa-magnifying-glass fa-2x" (click)="activarBuscador()"></i>
+                <i class="fa-solid fa-plus fa-2x mx-3" routerLink="/admin/categorias/crear-categoria"></i>
+            </div>
+        </div>
+    </nav>
+    <div class="resultados">
+        <form *ngIf="mostrarBuscador" class="buscadorAdmin d-flex">
+            <input #txtBuscar type="text" class="form-control" (keyup)="cargarCategorias(txtBuscar.value)" placeholder="Buscar...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </form>
+        <!-- Un div por cada categoria -->
+        <div *ngFor="let categoria of listaCategorias" class="d-flex cardCategoria">
+            <div class="nombreCategoria">
+                <h1 class="display-5">{{categoria.nombre}}</h1>
+            </div>
+            <div class="d-flex operaciones2">
+                <!-- Iconos de editar y eliminar -->
+                <i class="fa-solid fa-pen-to-square fa-2x" [routerLink]="['/admin/categorias/editar-categoria', categoria.uid]"></i>
+                <i class="fa-solid fa-trash-can fa-2x mx-3" (click)="borrarCategoria(categoria.uid, categoria.nombre)"></i>
+            </div>
+        </div>
+    </div>
+</section>

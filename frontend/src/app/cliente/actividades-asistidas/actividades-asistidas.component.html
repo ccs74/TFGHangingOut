@@ -1,0 +1,84 @@
+<section id="admin-back">
+    <header class="admin-header">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img src="../../../assets/imgs/Logo.png" class="logo">
+                <h1>Actividades</h1>
+            </div>
+            <i class="fa-solid fa-user fa-3x" (click)="cambiarPag()" routerLink="/editar-perfil"></i>
+        </div>
+    </header>
+    <div class="menuActividades d-flex">
+        <button [routerLink]="['/actividades/organizadas']">Organizadas</button>
+        <button [routerLink]="['/actividades/asistidas']" class="selected">Asistiré</button>
+        <button [routerLink]="['/actividades/favoritas']">Favoritas</button>
+    </div>
+    <div class="resultados5">
+        <!-- Un div por cada usuario -->
+        <div *ngFor="let actividad of listaActividades" class={{actividad.clase}}>
+            <div class="infoActivity d-flex">
+                <h5>{{actividad.fecha2}}</h5>
+                <div class="location d-flex">
+                    <h3>{{actividad.poblacion}}</h3>
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+            </div>
+            <div class="activity-content d-flex">
+                <div class="marcoFActividad" [routerLink]="['/actividades/ver-actividad/', actividad.uid]">
+                    <!-- Foto -->
+                    <img src="../../../assets/imgs/actividades/{{actividad.foto}}" class="fActividad">
+                </div>
+                <div class="ml-4 mr-6 descActivity">
+                    <h3 [routerLink]="['/actividades/ver-actividad/', actividad.uid]">{{actividad.titulo}}</h3>
+                    <h4 class="desc">{{actividad.descripcion}}</h4>
+                    <h5 class="requisitos"><strong>Requisitos: </strong> {{actividad.requisitos}}</h5>
+                    <div class="d-flex justify-content-end">
+                        <!-- <div>
+                            <div class="valoracion d-flex">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                        </div> -->
+                        <div *ngIf="actividad.fechaValida" class="botones-actividad d-flex">
+                            <i *ngIf="!actividad.favorito" class="fa-regular fa-heart meGusta" (click)="marcarFavorito(actividad.uid, true)"></i>
+                            <i *ngIf="actividad.favorito" class="fa-solid fa-heart meGusta" (click)="marcarFavorito(actividad.uid, false)"></i>
+                            <i *ngIf="actividad.asistir" class="fa-solid fa-circle-check asistir" (click)="marcarAsistencia(actividad.uid, false)"></i>
+                            <i *ngIf="!actividad.asistir && !actividad.completa" class="fa-regular fa-circle-check asistir" (click)="marcarAsistencia(actividad.uid, true)"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="infoEmail">{{actividad.email}}</p>
+            <div class="d-flex activityFooter">
+                <h3 class="precio"><strong>Precio: </strong> {{actividad.precio}}€</h3>
+
+                <div class="participantes d-flex">
+                    <h3>{{actividad.num_participantes}} Participantes </h3>
+                    <p *ngIf="!actividad.completa">(Mín: {{actividad.min_participantes}} - Máx: {{actividad.max_participantes}})</p>
+                    <p *ngIf="actividad.completa" class="actividadCompleta">Completa</p>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="listaVacia" class="listaVacia">
+            <p>Todavía no te has apuntado a ninguna actividad</p>
+        </div>
+        <button [routerLink]="['/actividades/crear-actividad']" class="addActividad">Añadir</button>
+    </div>
+    <div class="navBarCliente d-flex">
+        <div>
+            <button><i class="fa-solid fa-user-group fa-3x" routerLink="/usuarios"></i></button>
+        </div>
+        <div class="clicked">
+            <button><i class="fa-solid fa-rectangle-list fa-3x" routerLink="/actividades/organizadas"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-magnifying-glass fa-3x" routerLink="/resultados-actividades"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-comments fa-3x" routerLink="/chats"></i></button>
+        </div>
+    </div>
+</section>

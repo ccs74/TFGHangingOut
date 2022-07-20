@@ -1,0 +1,104 @@
+<section id="admin-back">
+    <header class="admin-header">
+        <div class="d-flex">
+            <img src="../../../assets/imgs/Logo.png" class="logo">
+            <h1 class="mt-5">Panel de Control</h1>
+        </div>
+
+    </header>
+    <div *ngIf="opcion == 1" class="menuIncidencias d-flex">
+        <button class="selected">Pendientes</button>
+        <button (click)="cambiarOpcion(2)">Resueltas</button>
+    </div>
+    <div *ngIf="opcion == 2" class="menuIncidencias d-flex">
+        <button (click)="cambiarOpcion(1)">Pendientes</button>
+        <button class="selected">Resueltas</button>
+    </div>
+    <!-- Común en la parte de admin -->
+    <nav class="admin-nav">
+        <div class="float-left mr-1">
+            <div class="dropdown">
+                <button class="menuBoton" type="button" data-toggle="dropdown">
+                  <i class="fa-solid fa-bars fa-2x p-1"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/usuarios">Usuarios</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/actividades">Actividades</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/categorias">Categorías</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/incidencias">Incidencias</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button class="logOutAdmin" (click)="logout()">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex admin-nav-title ">
+            <div class="ml-2 my-auto">
+                <h4 class="title2 mt-2">Incidencias</h4>
+            </div>
+        </div>
+    </nav>
+
+    <div class="resultados3">
+        <div *ngIf="opcion==1">
+            <div class="cardActividad" *ngFor="let incidencia of pendientes">
+                <div class="infoActivity d-flex">
+                    <h3 style="color: #999999;">{{incidencia.fecha2}}</h3>
+                    <h2 class="resolverLink" (click)="setBefore()" [routerLink]="['/admin/incidencias/resolver-incidencia/', incidencia.uid]">Resolver</h2>
+                </div>
+                <table class="divIncidencia">
+                    <tbody>
+                        <tr>
+                            <th>Denunciante:</th>
+                            <td>{{incidencia.emailDenunciante}}</td>
+                        </tr>
+                        <tr>
+                            <th>Denunciado:</th>
+                            <td>{{incidencia.emailDenunciado}}</td>
+                        </tr>
+                        <tr>
+                            <th>Motivo:</th>
+                            <td>{{incidencia.motivo2}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngIf="opcion==2">
+            <div class="cardActividad" *ngFor="let incidencia of resueltas">
+                <div class="infoActivity d-flex">
+                    <h3 style="color: #999999;">{{incidencia.fecha2}}</h3>
+                </div>
+                <table class="divIncidencia">
+                    <tbody>
+                        <tr>
+                            <th>Denunciante:</th>
+                            <td>{{incidencia.emailDenunciante}}</td>
+                        </tr>
+                        <tr>
+                            <th>Denunciado:</th>
+                            <td>{{incidencia.emailDenunciado}}</td>
+                        </tr>
+                        <tr>
+                            <th>Motivo:</th>
+                            <td>{{incidencia.motivo2}}</td>
+                        </tr>
+                        <tr>
+                            <th>Solución:</th>
+                            <td>{{incidencia.solucion}}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

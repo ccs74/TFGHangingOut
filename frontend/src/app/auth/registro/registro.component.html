@@ -1,0 +1,93 @@
+<header>
+    <div class="d-flex align-content-between flex-wrap">
+        <img src="../../../assets/imgs/LogoImgs.png" class="mx-auto mt-5 logo">
+    </div>
+</header>
+<h1 class="tituloLogin">Registrarse</h1>
+<div class="formulario">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="input-section my-2">
+            <label for="nombre"></label>
+            <input class="form-control" [ngClass]="{'campo-incorrecto': !campoValido('nombre')}" formControlName="nombre" type="text" placeholder="Nombre*" required>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('nombre')">* El nombre de usuario es obligatorio</p>
+        <div class="input-section my-2">
+            <label for="apellidos"></label>
+            <input type="text" class="form-control" [ngClass]="{'campo-incorrecto': !campoValido('apellidos')}" formControlName="apellidos" placeholder="Apellidos*" required>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('apellidos')">* Los apellidos del usuario son obligatorios</p>
+        <div class="input-section my-2">
+            <label for="email"></label>
+            <input type="email" class="form-control" [ngClass]="{'campo-incorrecto': !campoValido('email')}" formControlName="email" placeholder="Email*" required>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('email')">* El email es obligatorio y debe ser válido</p>
+        <div class="input-section my-2">
+            <label for="password"></label>
+            <input *ngIf="!mostrarPass1" type="password" class="form-control" [ngClass]="{'campo-incorrecto': !campoValido('password')}" formControlName="password" placeholder="Contraseña*" required>
+            <input *ngIf="mostrarPass1" type="text" class="form-control" [ngClass]="{'campo-incorrecto': !campoValido('password')}" formControlName="password" placeholder="Contraseña*" required>
+            <i *ngIf="mostrarPass1" class="fa-solid fa-eye-slash fa-2x" (click)="mostrarPassword(1)"></i>
+            <i *ngIf="!mostrarPass1" class="fa-solid fa-eye fa-2x" (click)="mostrarPassword(1)"></i>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('password')">* La contraseña es obligatoria</p>
+        <div class="input-section my-2">
+            <label for="confirm-password"></label>
+            <input *ngIf="!mostrarPass2" type="password" class="form-control" [ngClass]="{'campo-incorrecto': !campoValido('confirmPassword')}" formControlName="confirmPassword" placeholder="Repetir Contraseña*" required>
+            <input *ngIf="mostrarPass2" type="text" class="form-control" [ngClass]="{'campo-incorrecto': !campoValido('confirmPassword')}" formControlName="confirmPassword" placeholder="Repetir Contraseña*" required>
+            <i *ngIf="!mostrarPass2" class="fa-solid fa-eye fa-2x" (click)="mostrarPassword(2)"></i>
+            <i *ngIf="mostrarPass2" class="fa-solid fa-eye-slash fa-2x" (click)="mostrarPassword(2)"></i>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('confirmPassword')">* Por favor, introduzca la contraseña de nuevo</p>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!checarSiSonIguales()">* Las contraseñas no coinciden</p>
+        <div class="input-section my-2">
+            <label for="fechaNacimiento"></label>
+            <input type="date" class="form-control" [ngClass]="{'campo-incorrecto': !campoValido('fecha_nacimiento')}" formControlName="fecha_nacimiento" placeholder="dd/mm/aaaa*" required>
+            <i class="fa-solid fa-calendar-days fa-2x calendario"></i>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('fecha_nacimiento')">* La fecha de nacimiento es obligatoria</p>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="fechaInvalida">* Debes tener más de 16 años</p>
+        <div class="input-section my-2">
+            <label for="pais"></label>
+            <input type="text" class="form-control" [ngClass]="{'campo-incorrecto': !campoValido('pais')}" formControlName="pais" placeholder="País*" required>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('pais')">* El pais es obligatorio</p>
+        <div class="input-section my-2">
+            <label for="poblacion"></label>
+            <input type="text" class="form-control" [ngClass]="{'campo-incorrecto': !campoValido('poblacion')}" formControlName="poblacion" placeholder="Población*" required>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('poblacion')">* La población es obligatoria</p>
+        <div class="input-section my-2">
+            <label id="provRegistro" for="provincia"></label>
+            <select class="inputForm" id="provincia" [ngClass]="{'campo-incorrecto': !campoValido('provincia')}" formControlName="provincia" placeholder="Provincia*">
+              <option value="" disabled selected>Provincia</option>
+              <option *ngFor="let provincia of listaProvincias" value={{provincia.uid}}>{{provincia.nombre}}</option>
+            </select>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('provincia')">* La provincia es obligatoria</p>
+        <div class="input-section my-2">
+            <label for="descripcion"></label>
+            <textarea class="form-control" [ngClass]="{'campo-incorrecto': !campoValido('descripcion')}" formControlName="descripcion" placeholder="Descripción...*" minlength="120" required></textarea>
+        </div>
+        <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('descripcion')">* La descripción es obligatoria y debe tener al menos 120 caracteres</p>
+        <div class="d-flex justify-content-center">
+            <label class="fotoPerfil text-center" for="fotoPerfil">Foto de Perfil
+              <div class="marcoFPerfil4">
+                <img [src]="fotoPerfilURL" alt="" class='imgRedonda'>
+              </div>
+            </label>
+        </div>
+        <div class="divInputFile">
+            <!-- <input type="file" id="fotoPerfil" name="fotoPerfil" required> -->
+            <!-- <input id="inputFile" type="file" class="inputfile inputfile-2" accept='image/*' (change)="onFileSelect($event)" /> -->
+            <input id="inputFile" type="file" accept='image/*' (change)="onFileSelect($event)">
+            <!-- <label class="selectFile" for="file-2">
+              <span>Seleccionar archivo</span>
+            </label> -->
+        </div>
+        <button [disabled]="waiting" class="big-button" type="submit">
+          <i class="fa fa-spinner fa-spin mr-2"*ngIf="waiting"></i>
+          Registrarse</button>
+    </form>
+</div>
+<div class="d-flex mx-auto justify-content-center mt-3">
+    <p class="enlace">¿Ya tienes cuenta? <a routerLink="/login" class="signin"> Inicia Sesión</a></p>
+</div>

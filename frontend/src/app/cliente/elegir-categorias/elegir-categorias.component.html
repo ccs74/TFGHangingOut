@@ -1,0 +1,18 @@
+<section id="admin-back">
+    <header class="admin-header">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img src="../../../assets/imgs/Logo.png" class="logo">
+                <h1>Inicio</h1>
+            </div>
+            <i class="fa-solid fa-user fa-3x" routerLink="/editar-perfil"></i>
+        </div>
+    </header>
+    <div class="seleccionCategorias">
+        <h1 class="mb-3">Selecciona las categorías que te gusten</h1>
+        <div>
+            <button type="button" *ngFor="let categoria of listaCategorias" class={{categoria.clase}} (click)="onCheckboxChange($event, categoria.uid)">{{categoria.nombre}}</button>
+        </div>
+    </div>
+    <button type="button" class="nextButton" type="submit" (click)="actualizarUsuario()">Siguiente</button>
+</section>

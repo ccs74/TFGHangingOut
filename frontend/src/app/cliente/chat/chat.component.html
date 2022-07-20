@@ -1,0 +1,76 @@
+<section id="admin-back">
+    <header class="admin-header">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img src="../../../assets/imgs/Logo.png" class="logo">
+                <h1>Chats</h1>
+            </div>
+            <i class="fa-solid fa-user fa-3x" routerLink="/editar-perfil"></i>
+        </div>
+    </header>
+    <div class="backChat">
+        <div class="chatHeader d-flex">
+            <i class="fa-solid fa-arrow-rotate-left fa-2x" routerLink="/chats"></i>
+            <div *ngIf="receptor" class="marcoFPerfil" (click)="setBefore()" [routerLink]="['/usuarios/', receptor.uid]">
+                <!-- Foto -->
+                <img *ngIf="receptor" src="../../../assets/imgs/usuarios/{{receptor.foto}}" class="fPerfil">
+            </div>
+            <div class="infoChat">
+                <h1 *ngIf="receptor">{{receptor.nombre}} {{receptor.apellidos}}</h1>
+                <h2 *ngIf="actividad">{{actividad.titulo}}</h2>
+                <p>{{fecha}}</p>
+            </div>
+        </div>
+        <div class="conver fondoVacio" *ngIf="nuevo">
+            <h2 class="msgChat">Pregunta cualquier duda sobre la actividad</h2>
+        </div>
+        <div class="conver" *ngIf="!nuevo">
+
+            <div *ngFor="let mensaje of listaMensajes">
+                <h2 *ngIf="mensaje.clase=='fechaChat' || mensaje.clase == 'fechaChat2'" class="{{mensaje.clase}}">{{mensaje.texto}}</h2>
+                <div *ngIf="mensaje.clase=='recibido'" class="d-flex mensajeRecibido">
+                    <p>{{mensaje.texto}}</p>
+                    <h5 class="hora">{{mensaje.hora}}</h5>
+                </div>
+                <div *ngIf="mensaje.clase=='enviado'" class="mensaje">
+                    <div class="d-flex mensajeEnviado">
+                        <h5 class="hora">{{mensaje.hora}}</h5>
+                        <div>
+                            <p>{{mensaje.texto}}</p>
+                            <h4 class="estadoMsg">{{mensaje.estado}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="bloqueado" class="msgChat2">
+            <h2>Usuario bloqueado, no puedes enviar ni recibir mensajes</h2>
+        </div>
+    </div>
+    <div class="enviarMensaje">
+        <div *ngIf="!bloqueado" class="d-flex ">
+            <i class="fa-regular fa-face-grin-beam"></i>
+            <input type="text" #texto placeholder="Mensaje" (keyup.enter)="enviarMensaje(texto.value); texto.value = ''">
+            <i class="fa-solid fa-envelope" (click)="enviarMensaje(texto.value); texto.value = ''"></i>
+        </div>
+        <div *ngIf="bloqueado" class="d-flex bloqueado">
+            <i class="fa-regular fa-face-grin-beam"></i>
+            <input type="text" #texto placeholder="Mensaje" disabled>
+            <i class="fa-solid fa-envelope"></i>
+        </div>
+    </div>
+    <div class="navBarCliente d-flex">
+        <div>
+            <button><i class="fa-solid fa-user-group fa-3x" routerLink="/usuarios"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-rectangle-list fa-3x" routerLink="/actividades/organizadas"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-magnifying-glass fa-3x" routerLink="/resultados-actividades"></i></button>
+        </div>
+        <div class="clicked">
+            <button><i class="fa-solid fa-comments fa-3x" routerLink="/chats"></i></button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,107 @@
+<section class="mt-2 admin-nav">
+    <header class="admin-header">
+        <div class="d-flex">
+            <img src="../../../assets/imgs/Logo.png" class="logo">
+            <h1 class="mt-5">Panel de Control</h1>
+        </div>
+
+    </header>
+    <!-- Común en la parte de admin -->
+    <nav class="admin-nav">
+        <div class="float-left mr-1">
+            <div class="dropdown">
+                <button class="menuBoton" type="button" data-toggle="dropdown">
+              <i class="fa-solid fa-bars fa-2x p-1"></i>
+            </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/usuarios">Usuarios</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/actividades">Actividades</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/categorias">Categorías</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/incidencias">Incidencias</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button class="logOutAdmin" (click)="logout()">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex admin-nav-title ">
+            <div class="ml-2 my-auto">
+                <h4 class="title2 mt-2">Ver Actividad</h4>
+            </div>
+            <div class="d-flex my-auto">
+                <i class="fa-solid fa-arrow-rotate-left fa-2x mx-3" routerLink="/admin/actividades"></i>
+            </div>
+        </div>
+    </nav>
+</section>
+<div *ngIf="actividad" class="infoActividad" style="margin-top: 170px;">
+    <div class="marcoActividad">
+        <!-- Foto -->
+        <img src="../../../assets/imgs/actividades/{{actividad.foto}}" class="fActividad">
+    </div>
+    <div class="text-center mt-2 mx-3">
+        <h4 style="font-size: 1.2em;">{{actividad.titulo}}</h4>
+    </div>
+    <div class="d-flex datosActividad mt-2">
+        <i class="fa-solid fa-calendar-days fa-4x"></i>
+        <h2>{{actividad.fecha2}}</h2>
+    </div>
+    <div class="d-flex datosActividad">
+        <i class="fa-solid fa-location-dot"></i>
+        <h2>{{actividad.poblacion}}, ({{provincia}})</h2>
+    </div>
+    <div class="d-flex datosActividad">
+        <i class="fa-solid fa-coins fa-4x"></i>
+        <h2>{{actividad.precio}} €</h2>
+    </div>
+    <div class="datosActividad mt-3">
+        <h1>Descripción</h1>
+        <p>{{actividad.descripcion}}</p>
+    </div>
+    <div class="datosActividad">
+        <h1>Requisitos</h1>
+        <p>{{actividad.requisitos}}</p>
+    </div>
+    <div class="datosActividad">
+        <h1>Organizador</h1>
+        <p>{{actividad.email}}</p>
+        <div *ngIf="organizador" class="marcoFPerfil2">
+            <img src="../../../assets/imgs/usuarios/{{organizador.foto}}" class="fPerfil">
+        </div>
+        <div *ngIf="!actividad.esCreador" class="d-flex">
+            <h3 *ngIf="organizador" class="mt-1" (click)="guardarPag(actividad.organizador)">Ver Perfil {{organizador.nombre}}</h3>
+        </div>
+        <div *ngIf="actividad.esCreador">
+            <h3 class="mt-1" [routerLink]="['/admin/actividades/editar-actividad/', actividad.uid]">Editar Actividad</h3>
+        </div>
+    </div>
+    <div class="datosActividad">
+        <h1>Participantes</h1>
+        <div class="d-flex justify-content-around">
+            <p>Apuntados: {{actividad.num_participantes}}</p>
+            <a *ngIf="mostrarParticipants==false" class="verParticipantes" (click)="mostrarParticipantes(true)">Ver participantes</a>
+            <a *ngIf="mostrarParticipants==true" class="verParticipantes" (click)="mostrarParticipantes(false)">Ocultar</a>
+        </div>
+        <div *ngIf="mostrarParticipants == true">
+            <ul class="listaParticipantes">
+                <li *ngFor="let participant of listaParticipantes"><a (click)="guardarPag(participant.uid)">{{participant.nombre}} {{participant.apellidos}}</a></li>
+            </ul>
+        </div>
+        <div class="d-flex justify-content-center minmax">
+            <p>Mínimo: {{actividad.min_participantes}}</p>
+            <p class="ml-5">Máximo: {{actividad.max_participantes}}</p>
+        </div>
+    </div>
+    <div *ngIf="!viable" class="d-flex ml-3">
+        <i class="fa-solid fa-triangle-exclamation fa-2x"></i>
+        <p class="infoWarning">Por ahora no es posible realizar la actividad, se requiere un mínimo de {{actividad.min_participantes}} participantes.</p>
+    </div>
+</div>

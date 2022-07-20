@@ -1,0 +1,101 @@
+<section id="admin-back">
+    <header class="admin-header">
+        <div class="d-flex">
+            <img src="../../../assets/imgs/Logo.png" class="logo">
+            <h1 class="tituloControl">Panel de Control</h1>
+        </div>
+
+    </header>
+    <!-- Común en la parte de admin -->
+    <nav class="admin-nav">
+        <div class="float-left mr-1">
+            <div class="dropdown">
+                <button class="menuBoton" type="button" data-toggle="dropdown">
+                  <i class="fa-solid fa-bars fa-2x p-1"></i>
+              </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/usuarios">Usuarios</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/actividades">Actividades</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/categorias">Categorías</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/incidencias">Incidencias</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button class="logOutAdmin" (click)="logout()">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex admin-nav-title ">
+            <div class="ml-2 my-auto">
+                <h4 class="title2 mt-2">Actividades</h4>
+            </div>
+            <div class="d-flex my-auto">
+                <!-- Iconos Buscar y añadir -->
+                <i class="fa-solid fa-magnifying-glass fa-2x" (click)="activarBuscador()"></i>
+                <i class="fa-solid fa-plus fa-2x mx-3" routerLink="/admin/actividades/crear-actividad"></i>
+            </div>
+        </div>
+    </nav>
+    <div class="resultados">
+        <form *ngIf="mostrarBuscador" class="buscadorAdmin d-flex">
+            <input #txtBuscar type="text" class="form-control" (keyup)="cargarActividades(txtBuscar.value)" placeholder="Buscar...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </form>
+        <!-- Un div por cada actividad -->
+        <div *ngFor="let actividad of listaActividades" class="cardActividad">
+            <div class="infoActivity d-flex">
+                <h5>{{actividad.fecha2}}</h5>
+                <div class="location d-flex">
+                    <h3>{{actividad.poblacion}}</h3>
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+            </div>
+            <div class="activity-content d-flex">
+                <div [routerLink]="['/admin/actividades/ver-actividad/', actividad.uid]" class="marcoFActividad">
+                    <!-- Foto -->
+                    <img src="../../../assets/imgs/actividades/{{actividad.foto}}" class="fActividad">
+                </div>
+                <div class="ml-4 mr-6 descActivity">
+                    <h3 [routerLink]="['/admin/actividades/ver-actividad/', actividad.uid]">{{actividad.titulo}}</h3>
+                    <h4 class="desc">{{actividad.descripcion}}</h4>
+                    <h5 class="requisitos"><strong>Requisitos: </strong> {{actividad.requisitos}}</h5>
+                    <div class="d-flex justify-content-end">
+                        <!-- <div>
+                            <div class="valoracion d-flex">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                        </div> -->
+                        <div class="botones-actividad d-flex">
+                            <i class="fa-solid fa-pen-to-square fa-2x editar" [routerLink]="['/admin/actividades/editar-actividad', actividad.uid]"></i>
+                            <i class="fa-solid fa-trash-can fa-2x mx-3 eliminar" (click)="borrarActividad(actividad.uid, actividad.titulo)"></i>
+                        </div>
+                        <!-- <div class="d-flex operaciones2">
+                          <i class="fa-solid fa-pen-to-square fa-2x" [routerLink]="['/admin/actividades/editar-actividad', actividad.uid]"></i>
+                          <i class="fa-solid fa-trash-can fa-2x mx-3" (click)="borrarActividad(actividad.uid, actividad.titulo)"></i>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <p class="infoEmail">{{actividad.email}}</p>
+            <div class="d-flex activityFooter">
+                <h3 class="precio"><strong>Precio: </strong> {{actividad.precio}}€</h3>
+
+                <div class="participantes d-flex">
+                    <h3>{{actividad.num_participantes}} Participantes </h3>
+                    <p>(Mín: {{actividad.min_participantes}} - Máx: {{actividad.max_participantes}}) </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,140 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Buscador Hanging Out</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/149ac85315.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <section id="admin-back">
+        <header class="admin-header">
+            <div class="d-flex">
+                <img src="../imgs/Logo.png" class="logo">
+                <h1>Explorar</h1>
+                <i class="fa-solid fa-gear fa-6x"></i>
+            </div>
+        </header>
+        <div class="buscador d-flex">
+            <i class="fa-solid fa-filter fa-4x"></i>
+            <form>
+                <label for="textoBusqueda"></label>
+                <input type="text" id="textoBusqueda" name="textoBusqueda" placeholder="Buscar...">
+                <i class="fa-solid fa-magnifying-glass fa-3x iconoBuscador"></i>
+            </form>
+        </div>
+        <div class="filtros">
+            <form>
+                <div>
+                    <h1 class="mb-4">¿Dónde quieres hacer las actividades?</h1>
+                    <label for="lugar"></label>
+                    <input type="text" id="lugar" name="lugar" placeholder="San Vicente del Raspeig">
+                    <i class="fa-solid fa-location-dot fa-5x"></i>
+                </div>
+                <div>
+                    <h1>¿Qué te apetece?</h1>
+                    <div class="d-flex flex-row flex-wrap intereses">
+                        <div>
+                            <button>Cultura y Arte</button>
+                        </div>
+                        <div>
+                            <button class="selected">Viajes</button>
+                        </div>
+                        <div>
+                            <button>Música y Baile</button>
+                        </div>
+                        <div>
+                            <button>Idiomas</button>
+                        </div>
+                        <div>
+                            <button>Animales</button>
+                        </div>
+                        <div>
+                            <button>Educación</button>
+                        </div>
+                        <div>
+                            <button>Deportes</button>
+                        </div>
+                        <div>
+                            <button>Medioambiente</button>
+                        </div>
+                        <div>
+                            <button>Multiaventura</button>
+                        </div>
+                        <div>
+                            <button>Religión</button>
+                        </div>
+                        <div>
+                            <button>Ciencia y Tecnología</button>
+                        </div>
+                        <div>
+                            <button>Juegos</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h1>¿Cuándo?</h1>
+                    <label for="fecha"></label>
+                    <div class="d-flex mb-4">
+                        <div class="containerFecha">
+                            <button>Hoy</button>
+                        </div>
+                        <div class="containerFecha">
+                            <button>Mañana</button>
+                        </div>
+                        <div class="containerFecha">
+                            <button>Fin de Semana</button>
+                        </div>
+                    </div>
+                    <input type="date" name="fecha" id="fecha">
+                    <i class="fa-solid fa-calendar-days fa-5x"></i>
+                </div>
+                <div>
+                    <h1>Precio</h1>
+                    <label for="precio"></label>
+                    <input type="range" id="precio" name="precio">
+                </div>
+                <div>
+                    <div class="d-flex">
+                        <label class="checkpopularidad" for="popularidad">
+                            <input type="checkbox" id="popularidad" name="popularidad">
+                            <span>Ordenar por popularidad</span>
+                        </label>
+                    </div>
+
+                    <button class="form-button" type="submit">Buscar</button>
+                </div>
+            </form>
+        </div>
+        <div class="navBarCliente d-flex">
+            <div>
+                <button><i class="fa-solid fa-user-group fa-6x"></i></button>
+            </div>
+            <div>
+                <button><i class="fa-solid fa-rectangle-list fa-6x"></i></button>
+            </div>
+            <div>
+                <button><i class="fa-solid fa-magnifying-glass fa-6x"></i></button>
+            </div>
+            <div>
+                <button><i class="fa-solid fa-comments fa-6x"></i></button>
+            </div>
+        </div>
+    </section>
+
+</body>
+<!-- Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</html>

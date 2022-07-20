@@ -1,0 +1,68 @@
+<section id="admin-back">
+    <header class="admin-header">
+        <div class="d-flex">
+            <img src="../../../assets/imgs/Logo.png" class="logo">
+            <h1 class="mt-5">Panel de Control</h1>
+        </div>
+
+    </header>
+    <!-- Común en la parte de admin -->
+    <nav class="admin-nav">
+        <div class="float-left mr-1">
+            <div class="dropdown">
+                <button class="menuBoton" type="button" data-toggle="dropdown">
+              <i class="fa-solid fa-bars fa-2x p-1"></i>
+            </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/usuarios">Usuarios</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/actividades">Actividades</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/categorias">Categorías</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button routerLink="/admin/incidencias">Incidencias</button>
+                    </div>
+                    <div class="dropdown-option">
+                        <button class="logOutAdmin" (click)="logout()">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex admin-nav-title ">
+            <div class="ml-2 my-auto">
+                <h4 class="title2 mt-2">Resolver Incidencia</h4>
+            </div>
+            <div class="d-flex my-auto">
+                <i class="fa-solid fa-arrow-rotate-left fa-2x mx-3" routerLink={{before}}></i>
+            </div>
+        </div>
+    </nav>
+    <div class="resultados">
+        <div class="divIncidencia2 ml-5">
+            <div>
+                <h1>Fecha de la Denuncia</h1>
+                <p *ngIf="incidencia[0]">{{incidencia[0].fecha2}}</p>
+            </div>
+            <div>
+                <h1>Denunciante</h1>
+                <p *ngIf="incidencia[0]">{{incidencia[0].emailDenunciante}}</p>
+            </div>
+            <div>
+                <h1>Denunciado</h1>
+                <p *ngIf="incidencia[0]">{{incidencia[0].emailDenunciado}}</p>
+            </div>
+            <div>
+                <h1>Motivo</h1>
+                <p *ngIf="incidencia[0]">{{incidencia[0].motivo2}}</p>
+            </div>
+        </div>
+        <h2 *ngIf="nombre" class="bloquearMsg">Bloquear a {{nombre}} por un mal uso de la aplicación</h2>
+        <button *ngIf="!bloqueado" class="botonBloquear" (click)="bloquear()">Bloquear</button>
+        <button *ngIf="bloqueado" class="botonBloquear" (click)="bloquear()">Desbloquear</button>
+        <button class="botonBloquear denegar" (click)="denegar()">Denegar Incidencia</button>
+    </div>
+</section>

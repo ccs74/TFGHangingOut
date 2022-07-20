@@ -1,0 +1,52 @@
+<section id="admin-back">
+    <header class="admin-header">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img src="../../../assets/imgs/Logo.png" class="logo">
+                <h1>Chats</h1>
+            </div>
+            <i class="fa-solid fa-user fa-3x" routerLink="/editar-perfil"></i>
+        </div>
+    </header>
+    <div class="listaChats">
+        <div *ngFor="let chat of listaChats" class="usuarioCard" [routerLink]="['/chats/', chat.uid]">
+            <p *ngIf="chat.dias !== 0" class="text-right">Hace {{chat.dias}} días</p>
+            <p *ngIf="chat.dias === 0" class="text-right mr-2">Hoy</p>
+            <div class="d-flex">
+                <!-- [routerLink]="['/chats', usuario.uid]" -->
+                <div class="marcoFPerfil chat" [routerLink]="['/usuarios/', chat.receptor]">
+                    <!-- Foto -->
+                    <img src="../../../assets/imgs/usuarios/{{chat.fotoUsuario}}" class="fPerfil">
+                </div>
+                <div class="infoChat infoChat2">
+                    <h1>{{chat.receptor}}</h1>
+                    <h2>{{chat.titulo}}</h2>
+                    <p>{{chat.fecha}}</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <div class="marcoFActividadSmall">
+                    <!-- Foto -->
+                    <img src="../../../assets/imgs/actividades/{{chat.fotoActividad}}" class="fActividad">
+                </div>
+            </div>
+        </div>
+        <div *ngIf="listaVacia" class="listaVacia">
+            <p>Todavía no has iniciado ninguna conversación</p>
+        </div>
+    </div>
+    <div class="navBarCliente d-flex">
+        <div>
+            <button><i class="fa-solid fa-user-group fa-3x" routerLink="/usuarios"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-rectangle-list fa-3x" routerLink="/actividades/organizadas"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-magnifying-glass fa-3x" routerLink="/resultados-actividades"></i></button>
+        </div>
+        <div class="clicked">
+            <button><i class="fa-solid fa-comments fa-3x" routerLink="/chats"></i></button>
+        </div>
+    </div>
+</section>

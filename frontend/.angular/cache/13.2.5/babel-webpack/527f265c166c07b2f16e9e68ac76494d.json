@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const environment = {\n  production: true,\n  base_url: 'http://localhost:3001/api',\n  client_id: '754138453296-bka8gm0cmmdkk5ree90f9uko3rjf9jct.apps.googleusercontent.com'\n};","map":null,"metadata":{},"sourceType":"module"}

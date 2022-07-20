@@ -1,0 +1,180 @@
+<section>
+    <header class="admin-header">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img src="../../../assets/imgs/Logo.png" class="logo">
+                <h1>Usuarios</h1>
+            </div>
+            <i class="fa-solid fa-user fa-3x" routerLink="/editar-perfil"></i>
+        </div>
+    </header>
+    <div class="buscador d-flex">
+        <i class="fa-solid fa-filter fa-2x" (click)="activarFiltros()"></i>
+        <form class="mt-4">
+            <label for="textoBusqueda"></label>
+            <input type="text" #textoBuscar id="textoBusqueda" placeholder="Buscar..." (keyup)="updateTexto(textoBuscar.value)">
+            <i class="fa-solid fa-magnifying-glass fa-2x iconoBuscador"></i>
+        </form>
+    </div>
+    <div *ngIf="mostrarFiltros" class="filtros filtross">
+        <form [formGroup]="filtrosForm" (ngSubmit)="cargarUsuarios()">
+            <div>
+                <h1>Vivan en...</h1>
+                <div class="d-flex">
+                    <input type="text" id="lugar" formControlName="lugar" placeholder="Población...">
+                    <i class="fa-solid fa-location-dot fa-2x"></i>
+                </div>
+            </div>
+            <div class="separacion4"></div>
+            <div>
+                <h1>Tengan entre</h1>
+                <label for="precio"></label>
+                <div class="d-flex precios">
+                    <div class="d-flex">
+                        <input type="number" id="precio" formControlName="min">
+                    </div>
+                    <div class="d-flex ml-4">
+                        <span style="margin-right: 15px; font-size: 1.1em;"> y </span>
+                        <input type="number" id="precio" formControlName="max">
+                        <span style="margin-left: 15px; font-size: 1.1em;">años</span>
+                    </div>
+                </div>
+            </div>
+            <div class="separacion4"></div>
+            <div>
+                <button class="px-5 form-button" type="submit">Buscar</button>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="opcion==1 && !mostrarFiltros" class="menuUsuarios d-flex">
+        <button (click)="cambiar(0)">Todos</button>
+        <button class="selected">Siguiendo</button>
+        <button (click)="cambiar(2)">Seguir</button>
+        <button (click)="cambiar(3)">Bloqueados</button>
+    </div>
+    <div *ngIf="opcion==2 && !mostrarFiltros" class="menuUsuarios d-flex">
+        <button (click)="cambiar(0)">Todos</button>
+        <button (click)="cambiar(1)">Siguiendo</button>
+        <button class="selected">Seguir</button>
+        <button (click)="cambiar(3)">Bloqueados</button>
+    </div>
+    <div *ngIf="opcion==0 && !mostrarFiltros" class="menuUsuarios d-flex">
+        <button class="selected">Todos</button>
+        <button (click)="cambiar(1)">Siguiendo</button>
+        <button (click)="cambiar(2)">Seguir</button>
+        <button (click)="cambiar(3)">Bloqueados</button>
+    </div>
+    <div *ngIf="opcion==3 && !mostrarFiltros" class="menuUsuarios d-flex">
+        <button (click)="cambiar(0)">Todos</button>
+        <button (click)="cambiar(1)">Siguiendo</button>
+        <button (click)="cambiar(2)">Seguir</button>
+        <button class="selected">Bloqueados</button>
+    </div>
+    <div class="listaUsuarios" *ngIf="opcion==0 && !mostrarFiltros">
+        <div *ngFor="let usuario of listaTodos" class="usuarioCard pb-1">
+            <div class="d-flex">
+                <div class="marcoFPerfil" (click)="guardar()" [routerLink]="['/usuarios/', usuario.uid]">
+                    <img src="../../../assets/imgs/usuarios/{{usuario.foto}}" class="fPerfil">
+                </div>
+                <div class="infoChat">
+                    <h1>{{usuario.nombre}} {{usuario.apellidos}}</h1>
+                    <p style="color:#999999">{{usuario.descripcion}}</p>
+                </div>
+            </div>
+            <h2 class="ml-2" style="color:#707070; font-size: 0.9em;">21 años <a *ngIf="usuario.bloqueado" class="ml-3" style="color: var(--danger);" [routerLink]="['/usuarios/', usuario.uid]">Bloqueado</a></h2>
+            <div class="d-flex userLocation">
+                <i class="fa-solid fa-location-dot"></i>
+                <h3 style="color:#707070">{{usuario.poblacion}} ({{usuario.provincia}})</h3>
+            </div>
+            <button type="button" *ngIf="!usuario.seguido" class="boton-seguir" (click)="seguir(usuario.uid)">Seguir
+        </button>
+            <button type="button" *ngIf="usuario.seguido" class="boton-no-seguir" (click)="seguir(usuario.uid)">
+            <p>Siguiendo</p>
+        </button>
+        </div>
+    </div>
+    <div class="listaUsuarios" *ngIf="opcion==1 && !mostrarFiltros">
+        <div *ngFor="let usuario of listaSeguidos" class="usuarioCard pb-1">
+            <div class="d-flex">
+                <div class="marcoFPerfil" (click)="guardar()" [routerLink]="['/usuarios/', usuario.uid]">
+                    <img src="../../../assets/imgs/usuarios/{{usuario.foto}}" class="fPerfil">
+                </div>
+                <div class="infoChat">
+                    <h1>{{usuario.nombre}} {{usuario.apellidos}}</h1>
+                    <p style="color:#999999">{{usuario.descripcion}}</p>
+                </div>
+            </div>
+            <h2 class="ml-2" style="color:#707070; font-size: 0.9em;">21 años</h2>
+            <div class="d-flex userLocation">
+                <i class="fa-solid fa-location-dot"></i>
+                <h3 style="color:#707070">{{usuario.poblacion}} ({{usuario.provincia}})</h3>
+            </div>
+            <button type="button" *ngIf="!usuario.seguido" class="boton-seguir" (click)="seguir(usuario.uid)">
+                <p>Seguir</p>
+            </button>
+            <button type="button" *ngIf="usuario.seguido" class="boton-no-seguir" (click)="seguir(usuario.uid)">
+                <p>Siguiendo</p>
+            </button>
+        </div>
+    </div>
+    <div class="listaUsuarios" *ngIf="opcion==2 && !mostrarFiltros">
+        <div *ngFor="let usuario of listaNoSeguidos" class="usuarioCard pb-1">
+            <div class="d-flex">
+                <div class="marcoFPerfil" (click)="guardar()" [routerLink]="['/usuarios/', usuario.uid]">
+                    <img src="../../../assets/imgs/usuarios/{{usuario.foto}}" class="fPerfil">
+                </div>
+                <div class="infoChat">
+                    <h1>{{usuario.nombre}} {{usuario.apellidos}}</h1>
+                    <p style="color:#999999">{{usuario.descripcion}}</p>
+                </div>
+            </div>
+            <h2 class="ml-2" style="color:#707070; font-size: 0.9em;">21 años</h2>
+            <div class="d-flex userLocation">
+                <i class="fa-solid fa-location-dot"></i>
+                <h3 style="color:#707070">{{usuario.poblacion}} ({{usuario.provincia}})</h3>
+            </div>
+            <button type="button" *ngIf="!usuario.seguido" class="boton-seguir" (click)="seguir(usuario.uid)">Seguir
+          </button>
+            <button type="button" *ngIf="usuario.seguido" class="boton-no-seguir" (click)="seguir(usuario.uid)">
+              <p>Siguiendo</p>
+          </button>
+        </div>
+    </div>
+    <div class="listaUsuarios" *ngIf="opcion==3 && !mostrarFiltros">
+        <div *ngFor="let usuario of listaBloqueados" class="usuarioCard pb-1">
+            <div class="d-flex">
+                <div class="marcoFPerfil" (click)="guardar()" [routerLink]="['/usuarios/', usuario.uid]">
+                    <img src="../../../assets/imgs/usuarios/{{usuario.foto}}" class="fPerfil">
+                </div>
+                <div class="infoChat">
+                    <h1>{{usuario.nombre}} {{usuario.apellidos}}</h1>
+                    <p style="color:#999999">{{usuario.descripcion}}</p>
+                </div>
+            </div>
+            <h2 class="ml-2" style="color:#707070; font-size: 0.9em;">21 años <a *ngIf="usuario.bloqueado" class="ml-3" style="color: var(--danger);" (click)="desbloquear(usuario.uid)">Desbloquear</a></h2>
+            <div class="d-flex userLocation">
+                <i class="fa-solid fa-location-dot"></i>
+                <h3 style="color:#707070">{{usuario.poblacion}} ({{usuario.provincia}})</h3>
+            </div>
+            <button type="button" *ngIf="!usuario.seguido" class="boton-seguir" (click)="seguir(usuario.uid)">Seguir
+      </button>
+            <button type="button" *ngIf="usuario.seguido" class="boton-no-seguir" (click)="seguir(usuario.uid)">
+          <p>Siguiendo</p>
+      </button>
+        </div>
+    </div>
+    <div class="navBarCliente d-flex">
+        <div class="clicked">
+            <button><i class="fa-solid fa-user-group fa-3x" routerLink="/usuarios"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-rectangle-list fa-3x" routerLink="/actividades/organizadas"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-magnifying-glass fa-3x" routerLink="/resultados-actividades"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-comments fa-3x" routerLink="/chats"></i></button>
+        </div>
+    </div>
+</section>

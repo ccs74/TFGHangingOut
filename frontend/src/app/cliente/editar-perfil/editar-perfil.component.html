@@ -1,0 +1,121 @@
+<section id="admin-back">
+    <header class="admin-header">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img src="../../../assets/imgs/Logo.png" class="logo">
+                <h1>Editar Perfil</h1>
+            </div>
+        </div>
+    </header>
+    <div class="d-flex navSup">
+        <i class="fa-solid fa-arrow-rotate-left fa-2x" routerLink={{before}}></i>
+    </div>
+    <div>
+        <form [formGroup]="usuarioForm" (ngSubmit)="actualizarUsuario()">
+            <div>
+                <label class="tituloForm mt-3" for="nombre">Nombre*</label><br>
+                <input type="text" class="inputForm" formControlName="nombre" required>
+                <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('nombre')">* El nombre de usuario es obligatorio</p>
+            </div>
+            <div>
+                <label class="tituloForm" for="apellidos">Apellidos*</label><br>
+                <input class="inputForm" type="text" formControlName="apellidos" required>
+            </div>
+            <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('apellidos')">* Los apellidos del usuario son obligatorios</p>
+            <div>
+                <label class="tituloForm" for="email">Email*</label><br>
+                <input class="inputForm" type="email" formControlName="email" required>
+            </div>
+            <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('email')">* El email es obligatorio y debe ser válido</p>
+            <div>
+                <label class="tituloForm" for="fecha_nacimiento">Fecha de Nacimiento*</label><br>
+                <div>
+                    <input class="inputForm" type="date" formControlName="fecha_nacimiento" value="" required>
+                    <i class="fa-solid fa-calendar-days nacimiento"></i>
+                </div>
+            </div>
+            <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('fecha_nacimiento')">* La fecha de nacimiento es obligatoria</p>
+            <p class="small text-danger font-italic invalid-msg" *ngIf="fechaInvalida">* Debes tener más de 16 años</p>
+            <div>
+                <label class="tituloForm" for="pais">País*</label>
+                <input type="text" class="inputForm" formControlName="pais">
+            </div>
+            <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('pais')">* El pais es obligatorio</p>
+            <div>
+                <label class="tituloForm" for="poblacion">Población*</label>
+                <input type="text" class="inputForm" formControlName="poblacion">
+            </div>
+            <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('poblacion')">* La población es obligatoria</p>
+            <div>
+                <label class="tituloForm" for="provincia">Provincia*</label><br>
+                <select class="inputForm" id="provincia" formControlName="provincia">
+                  <option value="" disabled selected>Provincia</option>
+                  <option *ngFor="let provincia of listaProvincias" value={{provincia.uid}}>{{provincia.nombre}}</option>
+                </select>
+            </div>
+            <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('provincia')">* La provincia es obligatoria</p>
+            <div>
+                <label class="tituloForm" for="descripcion">Descripción*</label><br>
+                <textarea class="inputForm" formControlName="descripcion" minlength="120" required></textarea>
+            </div>
+            <p class="small text-danger font-italic invalid-msg" *ngIf="!campoValido('descripcion')">* La descripción es obligatoria y debe tener al menos 120 caracteres</p>
+            <div>
+                <label class="fotoPerfil fpAdmin text-center" for="fotoPerfil">Foto de Perfil
+                <div class="marcoFPerfil4">
+                  <img [src]="fotoPerfilURL" alt="" class='imgRedonda'>
+                </div>
+              </label>
+            </div>
+            <div class="divInputFile mb-2 mx-4">
+                <input id="inputFile" type="file" accept='image/*' (change)="onFileSelect($event)">
+            </div>
+            <div>
+                <label class="tituloForm" for="intereses">Intereses*</label><br>
+                <div class="mx-2 d-flex flex-row flex-wrap intereses">
+                    <div class="containerCategoria" *ngFor="let categoria of listaCategorias">
+                        <button type="button" class={{categoria.clase}} (click)="onCheckboxChange($event, categoria.uid)">{{categoria.nombre}}</button>
+                    </div>
+                </div>
+                <p class="small text-danger font-italic invalid-msg" *ngIf="faltanIntereses">* Debes seleccionar al menos 3 categorías que te gusten</p>
+            </div>
+            <div class="mt-4">
+                <a routerLink="/cambiar-contraseña" class="cambiarPass">Cambiar Contraseña</a>
+            </div>
+            <div>
+                <a class="cerrar-sesion mt-2" (click)="logout()">Cerrar Sesión</a>
+            </div>
+            <button class="form-button px-3" type="submit"><i class="fa fa-spinner fa-spin mr-2"*ngIf="waiting"></i>Guardar Cambios</button>
+        </form>
+        <div>
+            <table class="table actividadesPerfil">
+                <thead>
+                    <tr>
+                        <th scope="col">Actividades</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">Has organizado {{totalOrganizadas}} actividades </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">Has asistido a {{totalAsistidas}} actividades </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="navBarCliente d-flex">
+        <div>
+            <button><i class="fa-solid fa-user-group fa-3x" routerLink="/usuarios"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-rectangle-list fa-3x" routerLink="/actividades/organizadas"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-magnifying-glass fa-3x" routerLink="/resultados-actividades"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-comments fa-3x" routerLink="/chats"></i></button>
+        </div>
+    </div>
+</section>

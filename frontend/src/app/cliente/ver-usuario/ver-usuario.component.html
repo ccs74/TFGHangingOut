@@ -1,0 +1,115 @@
+<section id="admin-back">
+    <header class="admin-header">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img src="../../../assets/imgs/Logo.png" class="logo">
+                <h1>Usuarios</h1>
+            </div>
+            <i class="fa-solid fa-user fa-3x" routerLink="/editar-perfil"></i>
+        </div>
+    </header>
+    <div class="separacion"></div>
+    <div class="">
+        <div class="volver">
+            <i class="fa-solid fa-arrow-rotate-left" routerLink={{anterior}}></i>
+        </div>
+        <div class="mx-auto text-center">
+            <div *ngIf="usuario" class="marcoFPerfil3">
+                <img src="../../../assets/imgs/usuarios/{{usuario.foto}}" class="fPerfil">
+            </div>
+            <h2 *ngIf="usuario" class="nombreUsuario">{{usuario.nombre}} {{usuario.apellidos}}</h2>
+        </div>
+        <div class="datosActividad">
+            <h1>Descripción</h1>
+            <p *ngIf="usuario">{{usuario.descripcion}}</p>
+        </div>
+        <div class="d-flex">
+            <div class="datosActividad">
+                <h1>Edad</h1>
+                <p *ngIf="edad">{{edad}} años</p>
+            </div>
+        </div>
+        <div class="datosActividad">
+            <div class="d-flex">
+                <h1>Vive en...</h1>
+                <i class="fa-solid fa-location-dot fa-3x verUsuarioLocation"></i>
+            </div>
+            <p *ngIf="usuario && provincia">{{usuario.poblacion}} ({{provincia}})</p>
+        </div>
+        <div class="datosActividad">
+            <h1>Actividades</h1>
+            <p *ngIf="numActividades !== 1">Ha organizado: {{numActividades}} actividades</p>
+            <p *ngIf="numActividades === 1">Ha organizado: {{numActividades}} actividad</p>
+            <a *ngIf="numActividades > 0 && mostrarActividades == false" (click)="mostrarActividadesCreadas(true)">Ver actividades</a>
+            <a *ngIf="numActividades > 0 && mostrarActividades == true" (click)="mostrarActividadesCreadas(false)">Ocultar Actividades</a>
+        </div>
+        <div *ngIf="mostrarActividades">
+            <div *ngFor="let actividad of listaActividades" class="cardActividad">
+                <div class="infoActivity d-flex">
+                    <h5>{{actividad.fecha2}}</h5>
+                    <div class="location d-flex">
+                        <h3>{{actividad.poblacion}}</h3>
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                </div>
+                <div class="activity-content d-flex">
+                    <div class="marcoFActividad" [routerLink]="['/actividades/ver-actividad/', actividad.uid]">
+                        <!-- Foto -->
+                        <img src="../../../assets/imgs/actividades/{{actividad.foto}}" class="fActividad">
+                    </div>
+                    <div class="ml-4 mr-6 descActivity">
+                        <h3 [routerLink]="['/actividades/ver-actividad/', actividad.uid]">{{actividad.titulo}}</h3>
+                        <h4 class="desc">{{actividad.descripcion}}</h4>
+                        <h5 class="requisitos"><strong>Requisitos: </strong> {{actividad.requisitos}}</h5>
+                        <div *ngIf="actividad.fechaValida" class="d-flex justify-content-end mr-2">
+                            <div class="botones-actividad d-flex">
+                                <i *ngIf="!actividad.favorito" class="fa-regular fa-heart meGusta" (click)="marcarFavorito(actividad.uid, true)"></i>
+                                <i *ngIf="actividad.favorito" class="fa-solid fa-heart meGusta" (click)="marcarFavorito(actividad.uid, false)"></i>
+                                <i *ngIf="actividad.asistir" class="fa-solid fa-circle-check asistir" (click)="marcarAsistencia(actividad.uid, false)"></i>
+                                <i *ngIf="!actividad.asistir && !actividad.completa" class="fa-regular fa-circle-check asistir" (click)="marcarAsistencia(actividad.uid, true)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="infoEmail" [routerLink]="['/chats/', actividad.uid]">{{actividad.email}}</p>
+                <div class="d-flex activityFooter">
+                    <h3 class="precio"><strong>Precio: </strong> {{actividad.precio}}€</h3>
+
+                    <div class="participantes d-flex">
+                        <h3>{{actividad.num_participantes}} Participantes </h3>
+                        <p *ngIf="!actividad.completa">(Mín: {{actividad.min_participantes}} - Máx: {{actividad.max_participantes}})</p>
+                        <p *ngIf="actividad.completa" class="actividadCompleta">Completa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div style="height: 100px;"></div> -->
+        <div class="d-flex datosActividad mt-2">
+            <i class="fa-solid fa-ban fa-5x meGusta"></i>
+            <h2 *ngIf="!bloqueado" (click)="bloquear()">Bloquear</h2>
+            <h2 *ngIf="bloqueado" (click)="bloquear()">Desbloquear</h2>
+        </div>
+        <div class="d-flex datosActividad mt-2">
+            <i class="fa-solid fa-flag fa-4x meGusta"></i>
+            <h2 *ngIf="usuario" [routerLink]="['/usuarios/denunciar/', usuario.uid]">Denunciar</h2>
+        </div>
+    </div>
+    <div>
+        <button *ngIf="siguiendo" class="form-button3" type="button" (click)="seguir()">Dejar de seguir</button>
+        <button *ngIf="!siguiendo" class="form-button2" type="button" (click)="seguir()">Seguir</button>
+    </div>
+    <div class="navBarCliente d-flex">
+        <div class="clicked">
+            <button><i class="fa-solid fa-user-group fa-3x" routerLink="/usuarios"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-rectangle-list fa-3x" routerLink="/actividades/organizadas"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-magnifying-glass fa-3x" routerLink="/resultados-actividades"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-comments fa-3x" routerLink="/chats"></i></button>
+        </div>
+    </div>
+</section>

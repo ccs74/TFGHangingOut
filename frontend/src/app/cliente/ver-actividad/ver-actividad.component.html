@@ -1,0 +1,101 @@
+<section id="admin-back" *ngIf="actividad">
+    <div class="header-actividad d-flex">
+        <h1>{{actividad.titulo}}</h1>
+        <i class="fa-solid fa-arrow-rotate-left fa-4x" [routerLink]="['/resultados-actividades']"></i>
+    </div>
+    <div class="infoActividad">
+        <div class="marcoActividad">
+            <!-- Foto -->
+            <img src="../../../assets/imgs/actividades/{{actividad.foto}}" class="fActividad">
+        </div>
+        <div class="d-flex datosActividad mt-2">
+            <i class="fa-solid fa-calendar-days fa-4x"></i>
+            <h2>{{actividad.fecha2}}</h2>
+        </div>
+        <div class="d-flex datosActividad">
+            <i class="fa-solid fa-location-dot"></i>
+            <h2>{{actividad.poblacion}}</h2>
+        </div>
+        <div class="d-flex datosActividad">
+            <i class="fa-solid fa-coins fa-4x"></i>
+            <h2>{{actividad.precio}} €</h2>
+        </div>
+        <div class="datosActividad mt-3">
+            <h1>Descripción</h1>
+            <p>{{actividad.descripcion}}</p>
+        </div>
+        <div class="datosActividad">
+            <h1>Requisitos</h1>
+            <p>{{actividad.requisitos}}</p>
+        </div>
+        <div class="datosActividad">
+            <h1>Organizador</h1>
+            <p>{{actividad.email}}</p>
+            <div *ngIf="organizador" class="marcoFPerfil2">
+                <img src="../../../assets/imgs/usuarios/{{organizador.foto}}" class="fPerfil">
+            </div>
+            <h5 *ngIf="!actividad.esCreador">Escríbele para preguntarle cualquier duda</h5>
+            <div *ngIf="!actividad.esCreador" class="d-flex">
+                <h3 *ngIf="organizador" class="mt-1" [routerLink]="['/chats/', actividad.uid]">Contactar con {{organizador.nombre}}</h3>
+                <i class="fa-solid fa-comment-dots"></i>
+            </div>
+            <div *ngIf="actividad.esCreador">
+                <h3 class="mt-1" [routerLink]="['/actividades/editar-actividad/', actividad.uid]">Editar Actividad</h3>
+            </div>
+        </div>
+        <div class="datosActividad">
+            <h1>Participantes</h1>
+            <div class="d-flex justify-content-around">
+                <p>Apuntados: {{actividad.num_participantes}}</p>
+                <a *ngIf="mostrarParticipants==false" class="verParticipantes" (click)="mostrarParticipantes(true)">Ver participantes</a>
+                <a *ngIf="mostrarParticipants==true" class="verParticipantes" (click)="mostrarParticipantes(false)">Ocultar</a>
+            </div>
+            <div *ngIf="mostrarParticipants == true">
+                <ul class="listaParticipantes">
+                    <li *ngFor="let participant of listaParticipantes"><a (click)="guardarPag(participant.uid)">{{participant.nombre}} {{participant.apellidos}}</a></li>
+                </ul>
+            </div>
+            <div class="d-flex justify-content-center minmax">
+                <p>Mínimo: {{actividad.min_participantes}}</p>
+                <p class="ml-5">Máximo: {{actividad.max_participantes}}</p>
+            </div>
+        </div>
+        <div *ngIf="!viable" class="d-flex ml-3">
+            <i class="fa-solid fa-triangle-exclamation fa-2x"></i>
+            <p class="infoWarning">Por ahora no es posible realizar la actividad, se requiere un mínimo de {{actividad.min_participantes}} participantes.</p>
+        </div>
+        <div class="d-flex mb-5 pb-5 mt-4 justify-content-around">
+            <div *ngIf="!actividad.favorito" class="d-flex opcion">
+                <h2>Guardar</h2>
+                <i class="fa-regular fa-heart meGusta" (click)="marcarFavorito(actividad.uid, true)"></i>
+            </div>
+            <div *ngIf="actividad.favorito" class="d-flex opcion">
+                <h2>No guardar</h2>
+                <i class="fa-solid fa-heart meGusta" (click)="marcarFavorito(actividad.uid, false)"></i>
+            </div>
+            <div *ngIf="!actividad.asistir" class="d-flex opcion">
+                <h2>¡Me apunto!</h2>
+                <i class="fa-regular fa-circle-check asistir" (click)="marcarAsistencia(actividad.uid, true)"></i>
+            </div>
+            <div *ngIf="actividad.asistir" class="d-flex opcion">
+                <h2>No puedo ir</h2>
+                <i class="fa-solid fa-circle-check asistir" (click)="marcarAsistencia(actividad.uid, false)"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="navBarCliente d-flex">
+        <div>
+            <button><i class="fa-solid fa-user-group fa-3x" routerLink="/usuarios"></i></button>
+        </div>
+        <div class="clicked">
+            <button><i class="fa-solid fa-rectangle-list fa-3x" routerLink="/actividades/organizadas"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-magnifying-glass fa-3x" routerLink="/resultados-actividades"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-comments fa-3x" routerLink="/chats"></i></button>
+        </div>
+    </div>
+</section>
